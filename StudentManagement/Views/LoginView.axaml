@@ -8,7 +8,7 @@
         <TextBox Watermark="Username" Margin="15" Width="300" Text="{Binding Username}"/>
         <TextBox Watermark="Password" Width="300" PasswordChar="*" Text="{Binding Password}"/>
         <Button Width="300" HorizontalContentAlignment="Center" Margin="30" HorizontalAlignment="Center"
-                Command="{Binding LogIn}">
+                Command="{Binding Login}">
             LOGIN
         </Button>
         <Label HorizontalAlignment="Center" Content="{Binding ErrorLabel}"></Label>

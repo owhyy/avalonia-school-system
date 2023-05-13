@@ -7,7 +7,7 @@ namespace StudentManagement.ViewModels;
 
 public class LoginViewModel : ViewModelBase
 {
-    private ObservableAsPropertyHelper<string> _errorLabel;
+    private string _errorLabel;
     private string _password;
     private string _username;
 
@@ -18,9 +18,9 @@ public class LoginViewModel : ViewModelBase
             (user, pass) => !string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(pass));
 
         canLogin.Select(valid => valid ? "" : "Username and password are required")
-            .ToProperty(this, x => x.ErrorLabel, out _errorLabel);
+            .BindTo(this, x => x.ErrorLabel);
         
-        LogIn = ReactiveCommand.Create(
+        Login = ReactiveCommand.Create(
             () =>
             {
                 // using var context = new UserContext();
@@ -28,14 +28,17 @@ public class LoginViewModel : ViewModelBase
                 //     .Single(user => user.username == _username && user.password == _password)
                 //     .Equals(null);
                 var validCredentials = Username == "a" && Password == "b";
-                this.WhenAnyValue(x => x.Username, x => x.Password, (user, pass) =>
-                    Username == "a" && Password == "b").Select(valid => valid ? "" : "Invalid credentials").ToProperty(this, x => x.ErrorLabel, out _errorLabel);
-                Console.WriteLine(validCredentials);
+                if (!validCredentials)
+                    ErrorLabel = "Invalid credentials";
                 return validCredentials;
             }, canLogin);
     }
     
-    public string ErrorLabel => _errorLabel.Value;
+    public string ErrorLabel
+    {
+        get => _errorLabel;
+        set => this.RaiseAndSetIfChanged(ref _errorLabel, value);
+    }
 
     public string Username
     {
@@ -49,5 +52,5 @@ public class LoginViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _password, value);
     }
 
-    public ReactiveCommand<Unit, bool> LogIn { get; }
+    public ReactiveCommand<Unit, bool> Login { get; }
 }
