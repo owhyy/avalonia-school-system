@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+.store
+.sonarlint
+.idea
+dotnet-ef
+bin/
