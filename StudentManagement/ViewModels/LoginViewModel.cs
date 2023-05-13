@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using ReactiveUI;
+using StudentManagement.Services;
 
 namespace StudentManagement.ViewModels;
 
@@ -23,11 +25,21 @@ public class LoginViewModel : ViewModelBase
         Login = ReactiveCommand.Create(
             () =>
             {
-                // using var context = new UserContext();
-                // var validCredentials = !context.Users
-                //     .Single(user => user.username == _username && user.password == _password)
-                //     .Equals(null);
-                var validCredentials = Username == "a" && Password == "b";
+                using var context = new UserContext();
+                var validCredentials = false;
+                try
+                {
+                    validCredentials = !context.Users
+                        .Single(user => user.username == _username && user.password == _password)
+                        .Equals(null);
+                }
+                
+                // TODO: figure out a better thing to catch here
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
                 if (!validCredentials)
                     ErrorLabel = "Invalid credentials";
                 return validCredentials;
