@@ -2,7 +2,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.AddStudentView">
-    Welcome to Avalonia!
+
+    <StackPanel Margin="0 80" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
+        <TextBox Watermark="First name" Width="600" Height="100" Text="{Binding FirstName}" />
+        <TextBox Watermark="Last name" Width="600" Height="100" Text="{Binding LastName}" />
+        <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Birth date" Width="600"
+                            Height="100" Text="{Binding Username}">
+        </CalendarDatePicker>
+        <ComboBox PlaceholderText="Gender" Width="600" Height="100" HorizontalAlignment="Center">
+            <ComboBoxItem>Male</ComboBoxItem>
+            <ComboBoxItem>Female</ComboBoxItem>
+        </ComboBox>
+        <ComboBox PlaceholderText="Year" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="100">
+            <ComboBoxItem>Freshman</ComboBoxItem>
+            <ComboBoxItem>Sophomore</ComboBoxItem>
+            <ComboBoxItem>Junior</ComboBoxItem>
+            <ComboBoxItem>Senior</ComboBoxItem>
+        </ComboBox>
+        <Button VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="ADD"
+                HorizontalAlignment="Center" Width="600" Height="100" />
+
+    </StackPanel>
 </UserControl>
