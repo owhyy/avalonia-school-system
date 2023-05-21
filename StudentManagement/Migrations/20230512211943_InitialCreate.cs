@@ -12,24 +12,26 @@ namespace StudentManagement.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "users",
-                columns: table => new
-                {
-                    userId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    username = table.Column<string>(type: "TEXT", nullable: false),
-                    password = table.Column<string>(type: "TEXT", nullable: false)
-                },
+                columns: table =>
+                    new
+                    {
+                        userId = table
+                            .Column<int>(type: "INTEGER", nullable: false)
+                            .Annotation("Sqlite:Autoincrement", true),
+                        username = table.Column<string>(type: "TEXT", nullable: false),
+                        password = table.Column<string>(type: "TEXT", nullable: false)
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_users", x => x.userId);
-                });
+                }
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "users");
+            migrationBuilder.DropTable(name: "users");
         }
     }
 }

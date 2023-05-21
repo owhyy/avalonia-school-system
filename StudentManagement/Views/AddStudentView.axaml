@@ -8,21 +8,16 @@
     <StackPanel Margin="0 80" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
         <TextBox Watermark="First name" Width="600" Height="100" Text="{Binding FirstName}" />
         <TextBox Watermark="Last name" Width="600" Height="100" Text="{Binding LastName}" />
-        <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Birth date" Width="600"
-                            Height="100" Text="{Binding Username}">
-        </CalendarDatePicker>
-        <ComboBox PlaceholderText="Gender" Width="600" Height="100" HorizontalAlignment="Center">
-            <ComboBoxItem>Male</ComboBoxItem>
-            <ComboBoxItem>Female</ComboBoxItem>
+        <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Date of birth" Width="600"
+                            Height="100" SelectedDate="{Binding BirthDate}"/>
+        <ComboBox PlaceholderText="Gender" Width="600" Height="100" HorizontalAlignment="Center"
+                  SelectedItem="{Binding Gender}" Items="{Binding Genders}">
         </ComboBox>
-        <ComboBox PlaceholderText="Year" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="100">
-            <ComboBoxItem>Freshman</ComboBoxItem>
-            <ComboBoxItem>Sophomore</ComboBoxItem>
-            <ComboBoxItem>Junior</ComboBoxItem>
-            <ComboBoxItem>Senior</ComboBoxItem>
+        <ComboBox PlaceholderText="Grade" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="100"
+                  SelectedItem="{Binding Grade}" Items="{Binding Grades}">
         </ComboBox>
         <Button VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="ADD"
-                HorizontalAlignment="Center" Width="600" Height="100" />
+                HorizontalAlignment="Center" Width="600" Height="100" Command="{Binding AddStudent}" />
 
     </StackPanel>
 </UserControl>

@@ -1,9 +1,11 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
-using StudentManagement.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.ViewModels;
 
@@ -13,27 +15,28 @@ public class LoginViewModel : ViewModelBase
     private string _password;
     private string _username;
 
-    public LoginViewModel()
+    public LoginViewModel(ObservableCollection<User> users)
     {
-        
-        var canLogin = this.WhenAnyValue(x => x.Username, x => x.Password,
-            (user, pass) => !string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(pass));
+        var canLogin = this.WhenAnyValue(
+            x => x.Username,
+            x => x.Password,
+            (user, pass) => !string.IsNullOrWhiteSpace(user) && !string.IsNullOrWhiteSpace(pass)
+        );
 
-        canLogin.Select(valid => valid ? "" : "Username and password are required")
+        canLogin
+            .Select(valid => valid ? "" : "Username and password are required")
             .BindTo(this, x => x.ErrorLabel);
-        
+
         Login = ReactiveCommand.Create(
             () =>
             {
-                using var context = new UserContext();
                 var validCredentials = false;
                 try
                 {
-                    validCredentials = !context.Users
+                    validCredentials = !users
                         .Single(user => user.username == _username && user.password == _password)
                         .Equals(null);
                 }
-                
                 // TODO: figure out a better thing to catch here
                 catch (Exception e)
                 {
@@ -43,9 +46,11 @@ public class LoginViewModel : ViewModelBase
                 if (!validCredentials)
                     ErrorLabel = "Invalid credentials";
                 return validCredentials;
-            }, canLogin);
+            },
+            canLogin
+        );
     }
-    
+
     public string ErrorLabel
     {
         get => _errorLabel;

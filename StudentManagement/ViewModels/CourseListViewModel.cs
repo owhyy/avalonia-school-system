@@ -1,6 +1,3 @@
 namespace StudentManagement.ViewModels;
 
-public class CourseListViewModel : ViewModelBase
-{
-    
-}
+public class CourseListViewModel : ViewModelBase { }

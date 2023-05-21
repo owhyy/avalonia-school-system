@@ -5,13 +5,13 @@
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.LoginView">
     <StackPanel Margin="325">
-        <TextBox Watermark="Username" Margin="15" Width="300" Text="{Binding Username}"/>
-        <TextBox Watermark="Password" Width="300" PasswordChar="*" Text="{Binding Password}"/>
+        <TextBox Watermark="Username" Margin="15" Width="300" Text="{Binding Username}" />
+        <TextBox Watermark="Password" Width="300" PasswordChar="*" Text="{Binding Password}" />
         <Button Width="300" HorizontalContentAlignment="Center" Margin="30" HorizontalAlignment="Center"
                 Command="{Binding Login}">
             LOGIN
         </Button>
-        <Label HorizontalAlignment="Center" Content="{Binding ErrorLabel}"></Label>
+        <Label HorizontalAlignment="Center" Content="{Binding ErrorLabel}" />
 
     </StackPanel>
 </UserControl>

@@ -1,6 +1,3 @@
 namespace StudentManagement.ViewModels;
 
-public class SettingsViewModel : ViewModelBase
-{
-    
-}
+public class SettingsViewModel : ViewModelBase { }

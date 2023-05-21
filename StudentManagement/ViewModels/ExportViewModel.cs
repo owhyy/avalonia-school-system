@@ -1,6 +1,3 @@
 namespace StudentManagement.ViewModels;
 
-public class ExportViewModel : ViewModelBase
-{
-    
-}
+public class ExportViewModel : ViewModelBase { }
