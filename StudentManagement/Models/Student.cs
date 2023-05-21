@@ -41,7 +41,7 @@ public class Student
 
     [Required(ErrorMessage = "{0} is required")]
     [DataType(DataType.Date)]
-    public DateTime birthDate { get; set; }
+    public DateOnly birthDate { get; set; }
 
     [Required(ErrorMessage = "{0} is required")]
     [EnumDataType(typeof(Gender))]

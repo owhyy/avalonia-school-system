@@ -2,13 +2,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800" Width="1200" Height="800"
              x:Class="StudentManagement.Views.StudentListView">
-    <ItemsControl Items="Binding {Students}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <Label Content="Binding {firstName}" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+
+    <Grid Margin="0 20 0 0 ">
+        <DataGrid Name="Students" Items="{Binding Students}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding studentId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="First Name" Binding="{Binding firstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding birthDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Gender" Binding="{Binding gender}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Grade" Binding="{Binding grade}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Margin="0 0 0 20" HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Bottom"
+                Command="{Binding GoBack}">
+            Go back
+        </Button>
+    </Grid>
+
 </UserControl>

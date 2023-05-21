@@ -12,19 +12,12 @@ public class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel(Database db)
     {
         _db = db;
-
-        var vm = new LoginViewModel(_db.getUsers());
-        vm.Login.Subscribe(validCredentials =>
-        {
-            if (validCredentials)
-            {
-                Content = MainMenu = new MenuViewModel();
-            }
-        });
-        Content = vm;
+        MainMenu = new MenuViewModel();
+        // GoToLoginView();
+        GoToStudentListView();
+        // GoToAddStudentView();
     }
 
-    public StudentListViewModel StudentList { get; }
     public MenuViewModel MainMenu { get; set; }
     public CourseListViewModel CourseList { get; }
 
@@ -32,6 +25,19 @@ public class MainWindowViewModel : ViewModelBase
     {
         get => _content;
         private set => this.RaiseAndSetIfChanged(ref _content, value);
+    }
+
+    public void GoToLoginView()
+    {
+        var vm = new LoginViewModel(_db.getUsers());
+        vm.Login.Subscribe(validCredentials =>
+        {
+            if (validCredentials)
+            {
+                Content = MainMenu;
+            }
+        });
+        Content = vm;
     }
 
     public void GoToAddStudentView()
@@ -50,7 +56,10 @@ public class MainWindowViewModel : ViewModelBase
 
     public void GoToStudentListView()
     {
-        Content = StudentList;
+        var students = _db.getStudents();
+        var vm = new StudentListViewModel(_db.getStudents());
+        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
+        Content = vm;
     }
 
     public void GoToSettingsView()

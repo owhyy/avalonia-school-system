@@ -30,7 +30,7 @@ public class AddStudentViewModel : ViewModelBase
                 {
                     firstName = FirstName,
                     lastName = LastName,
-                    birthDate = BirthDate,
+                    birthDate = DateOnly.FromDateTime(BirthDate),
                     grade = Grade,
                     gender = Gender
                 },
@@ -56,10 +56,7 @@ public class AddStudentViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _gender, value);
     }
 
-    public IEnumerable<Gender> Genders
-    {
-        get => Enum.GetValues(typeof(Gender)).Cast<Gender>();
-    }
+    public IEnumerable<Gender> Genders => Enum.GetValues(typeof(Gender)).Cast<Gender>();
 
     public Grade Grade
     {
@@ -67,18 +64,13 @@ public class AddStudentViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _grade, value);
     }
 
-    public IEnumerable<Grade> Grades
-    {
-        get => Enum.GetValues(typeof(Grade)).Cast<Grade>();
-    }
+    public IEnumerable<Grade> Grades => Enum.GetValues(typeof(Grade)).Cast<Grade>();
 
     public DateTime BirthDate
     {
         get => _birthDate;
         set => this.RaiseAndSetIfChanged(ref _birthDate, value);
     }
-
-    public DateTime Now => DateTime.Today;
 
     public ReactiveCommand<Unit, Student> AddStudent { get; }
 }
