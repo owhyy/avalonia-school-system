@@ -1,31 +1,33 @@
-using System.Collections.ObjectModel;
+using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using StudentManagement.Models;
 
 namespace StudentManagement.Services;
 
-public class Database
+public class Database : DbContext
 // Simple wrapper class to avoid passing 3 arguments to MainWindowView
 // and create contexts for each action
 {
-    public ObservableCollection<Student> getStudents()
+    public Database()
     {
-        using (var context = new StudentContext())
-        {
-            var students = context.Students;
-            return new ObservableCollection<Student>(students);
-        }
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = Path.Join(path, "students.db");
     }
 
-    public void addStudent(Student student)
+    private string DbPath { get; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        using var context = new StudentContext();
-        context.Add(student);
-        context.SaveChanges();
+        options.UseSqlite($"Data Source={DbPath}");
     }
 
-    public ObservableCollection<User> getUsers()
-    {
-        using var context = new UserContext();
-        return new ObservableCollection<User>(context.Users);
-    }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Mark> Marks { get; set; }
+    public DbSet<Absence> Absences { get; set; }
 }

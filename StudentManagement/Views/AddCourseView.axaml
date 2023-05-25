@@ -4,5 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudentManagement.Views.AddCourseView">
-    Welcome to Avalonia!
+    
+    <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <!-- TODO: add icon -->
+        <TextBox Width="600" Height="50" Watermark="Course code" HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Center" Text="{Binding Code}">
+        </TextBox>
+        <TextBox Width="600" Height="50" Watermark="Title" HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Center" Text="{Binding Title}">
+        </TextBox>
+        <TextBox Width="600" Height="50" Watermark="Total hours" HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Center" Text="{Binding Hours}">
+        </TextBox>
+        <ComboBox PlaceholderText="Teacher" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
+                  SelectedItem="{Binding Teacher}" Items="{Binding Teachers}">
+        </ComboBox>
+        <ComboBox PlaceholderText="Group" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
+                  SelectedItem="{Binding Group}" Items="{Binding Groups}">
+        </ComboBox>
+        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddCourse}">
+            ADD
+        </Button>
+    </StackPanel>
 </UserControl>

@@ -14,6 +14,7 @@
                 <DataGridTextColumn Header="Date of Birth" Binding="{Binding birthDate}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Gender" Binding="{Binding gender}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Grade" Binding="{Binding grade}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Courses" Binding="{Binding courses}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

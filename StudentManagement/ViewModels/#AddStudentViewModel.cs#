@@ -99,3 +99,12 @@ public class AddStudentViewModel : ViewModelBase
     public ReactiveCommand<Unit, Student> AddStudent { get; }
     public IEnumerable<Group> Groups => _database.Groups;
 }
+
+
+
+
+
+
+
+
+

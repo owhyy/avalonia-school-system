@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using StudentManagement.Services;
 
 namespace StudentManagement.Models;
 
@@ -9,45 +12,40 @@ public enum Gender
     Female
 }
 
-public enum Grade
-{
-    Freshman,
-    Sophomore,
-    Junior,
-    Senior
-}
-
 public class Student
 {
-    public int studentId { get; set; }
+    public int StudentId { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
+    [Required]
     [StringLength(
-        50,
+        20,
         MinimumLength = 3,
-        ErrorMessage = "First Name should be minimum 3 characters and a maximum of 50 characters"
+        ErrorMessage = "First Name should be between 3 characters and 20 characters"
     )]
     [DataType(DataType.Text)]
-    public string firstName { get; set; }
+    public string FirstName { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
+    [Required]
     [StringLength(
-        50,
+        20,
         MinimumLength = 3,
-        ErrorMessage = "Last Name should be minimum 3 characters and a maximum of 50 characters"
+        ErrorMessage = "Last Name should be between 3 characters and 20 characters"
     )]
     [DataType(DataType.Text)]
-    public string lastName { get; set; }
+    public string LastName { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
+    [Required]
     [DataType(DataType.Date)]
-    public DateOnly birthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
+    [Required]
     [EnumDataType(typeof(Gender))]
-    public Gender gender { get; set; }
+    public Gender Gender { get; set; }
 
-    [Required(ErrorMessage = "{0} is required")]
-    [EnumDataType(typeof(Grade))]
-    public Grade grade { get; set; }
+    [Required]
+    [EnumDataType(typeof(Group))]
+    public Group Group { get; set; }
+
+    public double AverageGrade(Student s) =>
+        new Database().Marks.Where(g => g.Student == s).Average(g => g.Value);
 }

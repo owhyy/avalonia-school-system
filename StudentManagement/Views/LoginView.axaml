@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.LoginView">
-    <StackPanel Margin="325">
-        <TextBox Watermark="Username" Margin="15" Width="300" Text="{Binding Username}" />
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+        <TextBox Watermark="Username" Width="300" Text="{Binding Username}" />
         <TextBox Watermark="Password" Width="300" PasswordChar="*" Text="{Binding Password}" />
-        <Button Width="300" HorizontalContentAlignment="Center" Margin="30" HorizontalAlignment="Center"
+        <Button Width="300" HorizontalContentAlignment="Center" Margin="10" HorizontalAlignment="Center"
                 Command="{Binding Login}">
             LOGIN
         </Button>

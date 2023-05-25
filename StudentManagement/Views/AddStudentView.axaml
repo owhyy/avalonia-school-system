@@ -5,19 +5,20 @@
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.AddStudentView">
 
-    <StackPanel Margin="0 80" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
-        <TextBox Watermark="First name" Width="600" Height="100" Text="{Binding FirstName}" />
-        <TextBox Watermark="Last name" Width="600" Height="100" Text="{Binding LastName}" />
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
+        <TextBox Watermark="First name" Width="600" Height="50" Text="{Binding FirstName}" />
+        <TextBox Watermark="Last name" Width="600" Height="50" Text="{Binding LastName}" />
         <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Date of birth" Width="600"
-                            Height="100" SelectedDate="{Binding BirthDate}"/>
-        <ComboBox PlaceholderText="Gender" Width="600" Height="100" HorizontalAlignment="Center"
+                            Height="50" SelectedDate="{Binding BirthDate}"/>
+        <ComboBox PlaceholderText="Gender" Width="600" Height="50" HorizontalAlignment="Center"
                   SelectedItem="{Binding Gender}" Items="{Binding Genders}">
         </ComboBox>
-        <ComboBox PlaceholderText="Grade" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="100"
-                  SelectedItem="{Binding Grade}" Items="{Binding Grades}">
+        <ComboBox PlaceholderText="Group" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
+                  SelectedItem="{Binding Group}" Items="{Binding Groups}">
         </ComboBox>
+        <!-- TODO: maybe do this just for fun -->
+        <!-- <AutoCompleteBox SelectedItem="{Binding Group}" Width="600" Height="50" Watermark="Group" Items="{Binding Groups}"></AutoCompleteBox> -->
         <Button VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="ADD"
-                HorizontalAlignment="Center" Width="600" Height="100" Command="{Binding AddStudent}" />
-
+                HorizontalAlignment="Center" Width="600" Height="50" Command="{Binding AddStudent}" />
     </StackPanel>
 </UserControl>

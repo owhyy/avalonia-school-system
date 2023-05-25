@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,9 @@ namespace StudentManagement.ViewModels;
 
 public class StudentListViewModel : ViewModelBase
 {
-    public StudentListViewModel(ObservableCollection<Student> students)
+    public StudentListViewModel(IEnumerable<Student> students)
     {
-        Students = students;
+        Students = new ObservableCollection<Student>(students);
         GoBack = ReactiveCommand.Create(() => { });
     }
 

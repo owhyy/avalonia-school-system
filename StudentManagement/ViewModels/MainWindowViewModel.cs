@@ -14,8 +14,11 @@ public class MainWindowViewModel : ViewModelBase
         _db = db;
         MainMenu = new MenuViewModel();
         // GoToLoginView();
-        GoToStudentListView();
         // GoToAddStudentView();
+        // GoToAddGroupView();
+
+        GoToAddCourseView();
+        // GoToAddTeacherView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -29,7 +32,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public void GoToLoginView()
     {
-        var vm = new LoginViewModel(_db.getUsers());
+        var vm = new LoginViewModel(_db.Users);
         vm.Login.Subscribe(validCredentials =>
         {
             if (validCredentials)
@@ -40,25 +43,43 @@ public class MainWindowViewModel : ViewModelBase
         Content = vm;
     }
 
-    public void GoToAddStudentView()
+    public void GoToAddGroupView()
     {
-        var vm = new AddStudentViewModel();
-        vm.AddStudent.Subscribe(student =>
+        var vm = new AddGroupViewModel();
+        vm.AddGroup.Subscribe(group =>
         {
-            if (student != null)
+            if (group != null)
             {
-                _db.addStudent(student);
+                _db.Groups.Add(group);
+                _db.SaveChanges();
                 Content = MainMenu;
             }
         });
         Content = vm;
     }
 
+    public void GoToAddStudentView()
+    {
+        var vm = new AddStudentViewModel(_db);
+        vm.AddStudent.Subscribe(student =>
+        {
+            if (student == null)
+                return;
+            _db.Students.Add(student);
+            _db.SaveChanges();
+            Content = MainMenu;
+        });
+        Content = vm;
+    }
+
     public void GoToStudentListView()
     {
-        var students = _db.getStudents();
-        var vm = new StudentListViewModel(_db.getStudents());
-        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
+        var students = _db.Students;
+        var vm = new StudentListViewModel(students);
+        vm.GoBack.Subscribe(_ =>
+        {
+            Content = MainMenu;
+        });
         Content = vm;
     }
 
@@ -69,7 +90,14 @@ public class MainWindowViewModel : ViewModelBase
 
     public void GoToAddCourseView()
     {
-        Content = new AddCourseViewModel();
+        var vm = new AddCourseViewModel(_db);
+        vm.AddCourse.Subscribe(course =>
+        {
+            _db.Courses.Add(course);
+            _db.SaveChanges();
+            Content = MainMenu;
+        });
+        Content = vm;
     }
 
     public void GoToCourseListView()
@@ -80,5 +108,20 @@ public class MainWindowViewModel : ViewModelBase
     public void GoToExportView()
     {
         Content = new ExportViewModel();
+    }
+
+    public void GoToAddTeacherView()
+    {
+        var vm = new AddTeacherViewModel();
+        vm.AddTeacher.Subscribe(teacher =>
+        {
+            if (teacher != null)
+            {
+                _db.Teachers.Add(teacher);
+                _db.SaveChanges();
+                Content = MainMenu;
+            }
+        });
+        Content = vm;
     }
 }
