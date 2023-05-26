@@ -14,16 +14,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         _db = db;
         MainMenu = new MenuViewModel();
-        // GoToLoginView();
-        // GoToAddStudentView();
-        // GoToAddGroupView();
-
-        // GoToAddCourseView();
-        // GoToAddTeacherView();
-        // GoToAddAbsenceView();
-        // GoToAddMarkView();
-        // GoToCourseListView();
-        GoToStudentListView();
+        GoToLoginView();
     }
 
     public MenuViewModel MainMenu { get; set; }
