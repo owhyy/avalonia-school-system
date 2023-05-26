@@ -8,6 +8,11 @@ namespace StudentManagement.Models;
 
 public class Course
 {
+    public override string ToString()
+    {
+        return $"{Title}({CourseCode})";
+    }
+
     [Key]
     public string CourseCode { get; set; }
 
@@ -24,7 +29,7 @@ public class Course
     public Teacher Teacher { get; set; }
 
     [Required(ErrorMessage = "{0} is required")]
-    public int TotalHours;
+    public int TotalHours { get; set; }
 
     [field: OptionalField]
     public Group Group { get; set; }

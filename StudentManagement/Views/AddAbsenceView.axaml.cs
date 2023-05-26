@@ -1,11 +1,12 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace StudentManagement.Views;
 
-public partial class SettingsView : UserControl
+public partial class AddAbsenceView : UserControl
 {
-    public SettingsView()
+    public AddAbsenceView()
     {
         InitializeComponent();
     }

@@ -2,19 +2,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:StudentManagement.Models"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800" Width="1200" Height="800"
              x:Class="StudentManagement.Views.StudentListView">
 
     <Grid Margin="0 20 0 0 ">
-        <DataGrid Name="Students" Items="{Binding Students}">
+        <DataGrid Name="Students" Items="{Binding Students}" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding studentId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="First Name" Binding="{Binding firstName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding birthDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Gender" Binding="{Binding gender}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Grade" Binding="{Binding grade}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Courses" Binding="{Binding courses}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding StudentId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding BirthDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Grade">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="models:Student">
+                            <TextBlock Text="{Binding Group.Grade}"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Group">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="models:Student">
+                            <TextBlock Text="{Binding Group}"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Average mark" Binding="{Binding AverageMark}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Absence count" Binding="{Binding AbsenceCount}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

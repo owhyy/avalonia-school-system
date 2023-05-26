@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+             x:Class="StudentManagement.Views.AddMarkView">
+    <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBox Text="{Binding Value}" Watermark="Value"></TextBox>
+        <CalendarDatePicker Width="600" Height="50" Watermark="Date" HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" Text="{Binding Date}">
+        </CalendarDatePicker>
+        <ComboBox PlaceholderText="Student" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
+                  SelectedItem="{Binding Student}" Items="{Binding Students}">
+        </ComboBox>
+        <ComboBox PlaceholderText="Course" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
+                  SelectedItem="{Binding Course}" Items="{Binding Courses}">
+        </ComboBox>
+        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddMark}">
+            ADD
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using StudentManagement.Services;
 
@@ -17,8 +18,12 @@ public class MainWindowViewModel : ViewModelBase
         // GoToAddStudentView();
         // GoToAddGroupView();
 
-        GoToAddCourseView();
+        // GoToAddCourseView();
         // GoToAddTeacherView();
+        // GoToAddAbsenceView();
+        // GoToAddMarkView();
+        // GoToCourseListView();
+        GoToStudentListView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -74,18 +79,12 @@ public class MainWindowViewModel : ViewModelBase
 
     public void GoToStudentListView()
     {
-        var students = _db.Students;
-        var vm = new StudentListViewModel(students);
+        var vm = new StudentListViewModel(_db);
         vm.GoBack.Subscribe(_ =>
         {
             Content = MainMenu;
         });
         Content = vm;
-    }
-
-    public void GoToSettingsView()
-    {
-        Content = new SettingsViewModel();
     }
 
     public void GoToAddCourseView()
@@ -102,7 +101,13 @@ public class MainWindowViewModel : ViewModelBase
 
     public void GoToCourseListView()
     {
-        Content = new CourseListViewModel();
+        var courses = _db.Courses;
+        var vm = new CourseListViewModel(courses.Include(c=>c.Teacher).Include(c=>c.Group));
+        vm.GoBack.Subscribe(_ =>
+        {
+            Content = MainMenu;
+        });
+        Content = vm;
     }
 
     public void GoToExportView()
@@ -118,6 +123,36 @@ public class MainWindowViewModel : ViewModelBase
             if (teacher != null)
             {
                 _db.Teachers.Add(teacher);
+                _db.SaveChanges();
+                Content = MainMenu;
+            }
+        });
+        Content = vm;
+    }
+
+    public void GoToAddAbsenceView()
+    {
+        var vm = new AddAbsenceViewModel(_db);
+        vm.AddAbsence.Subscribe(absence =>
+        {
+            if (absence != null)
+            {
+                _db.Absences.Add(absence);
+                _db.SaveChanges();
+                Content = MainMenu;
+            }
+        });
+        Content = vm;
+    }
+
+    public void GoToAddMarkView()
+    {
+        var vm = new AddMarkViewModel(_db);
+        vm.AddMark.Subscribe(mark =>
+        {
+            if (mark != null)
+            {
+                _db.Marks.Add(mark);
                 _db.SaveChanges();
                 Content = MainMenu;
             }

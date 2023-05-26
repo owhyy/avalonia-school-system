@@ -20,6 +20,11 @@ internal static class ValidationUtils
 
     public static bool IsGreaterThanZero(object? value)
     {
-        return value is int i && i != 0 && i > 0;
+        return value is > 0;
+    }
+
+    public static bool IsValidMark(object? value)
+    {
+        return value is > 0 and <= 10;
     }
 }

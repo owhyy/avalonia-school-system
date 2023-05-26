@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using StudentManagement.Services;
 
 namespace StudentManagement.Models;
 
@@ -15,6 +12,11 @@ public enum Gender
 public class Student
 {
     public int StudentId { get; set; }
+
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName}";
+    }
 
     [Required]
     [StringLength(
@@ -45,7 +47,4 @@ public class Student
     [Required]
     [EnumDataType(typeof(Group))]
     public Group Group { get; set; }
-
-    public double AverageGrade(Student s) =>
-        new Database().Marks.Where(g => g.Student == s).Average(g => g.Value);
 }

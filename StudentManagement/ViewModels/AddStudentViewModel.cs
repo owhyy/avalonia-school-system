@@ -11,6 +11,7 @@ namespace StudentManagement.ViewModels;
 
 public class AddStudentViewModel : ViewModelBase
 {
+    // TODO: change this to a DateOnly
     private DateTime _birthDate = DateTime.Today;
     private string _firstName;
     private Gender _gender;
