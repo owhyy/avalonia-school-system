@@ -13,11 +13,11 @@ public enum Grade
 
 public class Group
 {
-    [Key]
-    public string GroupCode { get; set; }
+    [Key] public string GroupCode { get; set; }
+
     public Grade Grade { get; set; }
     public virtual ICollection<Course> Courses { get; set; }
-    
+
     public override string ToString()
     {
         return GroupCode;

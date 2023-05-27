@@ -12,9 +12,6 @@ namespace StudentManagement.ViewModels;
 
 public class ExtendedStudent : Student
 {
-    public double AverageMark { get; set; }
-    public int AbsenceCount { get; set; }
-
     public ExtendedStudent(Student s)
     {
         StudentId = s.StudentId;
@@ -23,18 +20,21 @@ public class ExtendedStudent : Student
         Gender = s.Gender;
         Group = s.Group;
     }
+
+    public double AverageMark { get; set; }
+    public int AbsenceCount { get; set; }
 }
 
 public class StudentListViewModel : ViewModelBase
 {
     private string _group;
     private string _subject;
-    
+
     public StudentListViewModel(Database db)
     {
         var students = db.Students.Include(s => s.Group);
         var extendedStudents = new List<ExtendedStudent>();
-            
+
         foreach (var student in students)
         {
             var extendedStudent = new ExtendedStudent(student);
@@ -72,11 +72,13 @@ public class StudentListViewModel : ViewModelBase
         get => _group;
         set => this.RaiseAndSetIfChanged(ref _group, value);
     }
+
     public string SubjectToFilterBy
     {
         get => _subject;
         set => this.RaiseAndSetIfChanged(ref _subject, value);
     }
+
     public ReactiveCommand<Unit, Unit> ShowStudentsWithGroup { get; }
     public ReactiveCommand<Unit, Unit> ShowStudentsWithSubject { get; }
     public ReactiveCommand<Unit, Unit> ShowAverageGradeForSubject { get; }

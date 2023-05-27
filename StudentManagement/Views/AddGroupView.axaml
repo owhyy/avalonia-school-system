@@ -8,11 +8,9 @@
     <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
         <!-- TODO: add icon -->
         <TextBox Width="600" Height="50" Watermark="Code" HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center" Text="{Binding Code}">
-        </TextBox>
+                 VerticalContentAlignment="Center" Text="{Binding Code}" />
         <ComboBox PlaceholderText="Grade" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Grade}" Items="{Binding Grades}">
-        </ComboBox>
+                  SelectedItem="{Binding Grade}" Items="{Binding Grades}" />
         <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddGroup}">
             ADD

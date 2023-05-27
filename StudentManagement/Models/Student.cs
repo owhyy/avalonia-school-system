@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagement.Models;
@@ -14,11 +12,6 @@ public enum Gender
 public class Student
 {
     public int StudentId { get; set; }
-
-    public override string ToString()
-    {
-        return $"{FirstName} {LastName}";
-    }
 
     [Required]
     [StringLength(
@@ -38,9 +31,7 @@ public class Student
     [DataType(DataType.Text)]
     public string LastName { get; set; }
 
-    [Required]
-    [DataType(DataType.Date)]
-    public DateOnly BirthDate { get; set; }
+    [Required] [DataType(DataType.Date)] public DateOnly BirthDate { get; set; }
 
     [Required]
     [EnumDataType(typeof(Gender))]
@@ -49,4 +40,9 @@ public class Student
     [Required]
     [EnumDataType(typeof(Group))]
     public Group Group { get; set; }
+
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName}";
+    }
 }

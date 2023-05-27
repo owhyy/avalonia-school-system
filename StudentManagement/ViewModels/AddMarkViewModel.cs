@@ -25,9 +25,11 @@ public class IntBetween1And10ValidationAttribute : ValidationAttribute
 public class AddMarkViewModel : ViewModelBase
 {
     private Course _course;
+
+    private readonly Database _database;
+    private DateOnly _date = DateOnly.FromDateTime(DateTime.Today);
     private Student _student;
     private int _value;
-    private DateOnly _date = DateOnly.FromDateTime(DateTime.Today);
 
     public AddMarkViewModel(Database db)
     {
@@ -52,7 +54,8 @@ public class AddMarkViewModel : ViewModelBase
                     Course = Course,
                     DateReceived = Date,
                     Value = Value
-                }
+                },
+            canAddMark
         );
     }
 
@@ -82,8 +85,6 @@ public class AddMarkViewModel : ViewModelBase
         get => _date;
         set => this.RaiseAndSetIfChanged(ref _date, value);
     }
-
-    private Database _database;
 
     public IEnumerable<Student> Students => _database.Students;
     public IEnumerable<Course> Courses => _database.Courses;

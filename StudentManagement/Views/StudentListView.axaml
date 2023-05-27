@@ -9,27 +9,27 @@
     <Grid Margin="0 20 0 0 ">
         <DataGrid Name="Students" Items="{Binding Students}" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding StudentId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding BirthDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding StudentId}" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding BirthDate}" />
+                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" />
                 <DataGridTemplateColumn Header="Grade">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="models:Student">
-                            <TextBlock Text="{Binding Group.Grade}"></TextBlock>
+                            <TextBlock Text="{Binding Group.Grade}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Group">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="models:Student">
-                            <TextBlock Text="{Binding Group}"></TextBlock>
+                            <TextBlock Text="{Binding Group}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Average mark" Binding="{Binding AverageMark}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Absence count" Binding="{Binding AbsenceCount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Average mark" Binding="{Binding AverageMark}" />
+                <DataGridTextColumn Header="Absence count" Binding="{Binding AbsenceCount}" />
             </DataGrid.Columns>
         </DataGrid>
 

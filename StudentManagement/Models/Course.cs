@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace StudentManagement.Models;
 
 public sealed class Course
 {
-
-    public override string ToString()
-    {
-        return $"{Title}({CourseCode})";
-    }
-
-    public string CourseId { get; set; }
+    public int CourseId { get; set; }
     public string CourseCode { get; set; }
 
     [Required(ErrorMessage = "{0} is required")]
@@ -35,4 +24,9 @@ public sealed class Course
 
     [Required(ErrorMessage = "{0} is required")]
     public Group Group { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Title}({CourseCode})";
+    }
 }

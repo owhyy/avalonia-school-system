@@ -23,9 +23,8 @@ namespace StudentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
@@ -35,7 +34,7 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("AbsenceId");
 
-                    b.HasIndex("CourseCode");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("StudentId");
 
@@ -44,7 +43,12 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Models.Course", b =>
                 {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("CourseCode")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("GroupCode")
@@ -62,7 +66,7 @@ namespace StudentManagement.Migrations
                     b.Property<int>("TotalHours")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CourseCode");
+                    b.HasKey("CourseId");
 
                     b.HasIndex("GroupCode");
 
@@ -90,9 +94,8 @@ namespace StudentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CourseId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("DateReceived")
                         .HasColumnType("TEXT");
@@ -105,7 +108,7 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("MarkId");
 
-                    b.HasIndex("CourseCode");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("StudentId");
 
@@ -192,7 +195,7 @@ namespace StudentManagement.Migrations
                 {
                     b.HasOne("StudentManagement.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseCode")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -230,7 +233,7 @@ namespace StudentManagement.Migrations
                 {
                     b.HasOne("StudentManagement.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseCode")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

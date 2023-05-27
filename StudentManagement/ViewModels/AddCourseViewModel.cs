@@ -40,6 +40,13 @@ public class HoursValidationAttribute : ValidationAttribute
 
 public class AddCourseViewModel : ViewModelBase
 {
+    private string _code;
+
+    private readonly Database _database;
+    private int _hours;
+    private Teacher _teacher;
+    private string _title;
+
     public AddCourseViewModel(Database db)
     {
         _database = db;
@@ -63,14 +70,9 @@ public class AddCourseViewModel : ViewModelBase
                 TotalHours = Hours,
                 Teacher = Teacher,
                 Group = group
-            }).ToList()
+            })
         );
     }
-
-    private string _code;
-    private string _title;
-    private int _hours;
-    private Teacher _teacher;
 
     [Required(ErrorMessage = "{0} is required")]
     [StringLength(
@@ -118,9 +120,7 @@ public class AddCourseViewModel : ViewModelBase
     // [Required(ErrorMessage = "{0} is required")]
     // [EnumDataType(typeof(Group))]
     public ObservableCollection<Group> SelectedGroups { get; } = new();
-
-    private Database _database;
     public IEnumerable<Group> Groups => _database.Groups;
     public IEnumerable<Teacher> Teachers => _database.Teachers;
-    public ReactiveCommand<Unit, List<Course>> AddCourse { get; }
+    public ReactiveCommand<Unit, IEnumerable<Course>> AddCourse { get; }
 }

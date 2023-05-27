@@ -16,11 +16,6 @@ public class Database : DbContext
 
     private string DbPath { get; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        options.UseSqlite($"Data Source={DbPath}");
-    }
-
     public DbSet<Student> Students { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Group> Groups { get; set; }
@@ -28,4 +23,9 @@ public class Database : DbContext
     public DbSet<Course> Courses { get; set; }
     public DbSet<Mark> Marks { get; set; }
     public DbSet<Absence> Absences { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        options.UseSqlite($"Data Source={DbPath}");
+    }
 }

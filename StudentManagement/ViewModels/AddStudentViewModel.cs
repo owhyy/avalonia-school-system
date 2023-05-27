@@ -11,12 +11,14 @@ namespace StudentManagement.ViewModels;
 
 public class AddStudentViewModel : ViewModelBase
 {
+    private readonly Database _database;
+
     // TODO: change this to a DateOnly
     private DateTime _birthDate = DateTime.Today;
     private string _firstName;
     private Gender _gender;
-    private string _lastName;
     private Group _group;
+    private string _lastName;
 
     public AddStudentViewModel(Database db)
     {
@@ -96,7 +98,6 @@ public class AddStudentViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _group, value);
     }
 
-    private readonly Database _database;
     public ReactiveCommand<Unit, Student> AddStudent { get; }
     public IEnumerable<Group> Groups => _database.Groups;
 }

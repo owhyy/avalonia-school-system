@@ -9,9 +9,11 @@ namespace StudentManagement.ViewModels;
 
 public class AddAbsenceViewModel : ViewModelBase
 {
-    private Student _student;
     private Course _course;
+
+    private readonly Database _database;
     private DateOnly _date = DateOnly.FromDateTime(DateTime.Today);
+    private Student _student;
 
     public AddAbsenceViewModel(Database db)
     {
@@ -54,8 +56,6 @@ public class AddAbsenceViewModel : ViewModelBase
         get => _date;
         set => this.RaiseAndSetIfChanged(ref _date, value);
     }
-
-    private Database _database;
 
     public IEnumerable<Student> Students => _database.Students;
     public IEnumerable<Course> Courses => _database.Courses;

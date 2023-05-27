@@ -24,8 +24,8 @@ public sealed class GroupCodeValidationAttribute : ValidationAttribute
 
 public class AddGroupViewModel : ViewModelBase
 {
-    private Grade _grade;
     private string _code;
+    private Grade _grade;
 
     public AddGroupViewModel()
     {

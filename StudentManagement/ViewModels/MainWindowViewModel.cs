@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
-using SQLitePCL;
 using StudentManagement.Services;
 
 namespace StudentManagement.ViewModels;
@@ -10,7 +8,7 @@ namespace StudentManagement.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     private ViewModelBase _content;
-    private Database _db;
+    private readonly Database _db;
 
     public MainWindowViewModel(Database db)
     {
@@ -35,10 +33,7 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new LoginViewModel(_db.Users);
         vm.Login.Subscribe(validCredentials =>
         {
-            if (validCredentials)
-            {
-                Content = MainMenu;
-            }
+            if (validCredentials) Content = MainMenu;
         });
         Content = vm;
     }
@@ -75,10 +70,7 @@ public class MainWindowViewModel : ViewModelBase
     public void GoToStudentListView()
     {
         var vm = new StudentListViewModel(_db);
-        vm.GoBack.Subscribe(_ =>
-        {
-            Content = MainMenu;
-        });
+        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
         Content = vm;
     }
 
@@ -91,7 +83,7 @@ public class MainWindowViewModel : ViewModelBase
             {
                 context.BulkInsert(courses);
             }
-            
+
             Content = MainMenu;
         });
         Content = vm;
@@ -100,11 +92,8 @@ public class MainWindowViewModel : ViewModelBase
     public void GoToCourseListView()
     {
         var courses = _db.Courses;
-        var vm = new CourseListViewModel(courses.Include(c=>c.Teacher).Include(c=>c.Group));
-        vm.GoBack.Subscribe(_ =>
-        {
-            Content = MainMenu;
-        });
+        var vm = new CourseListViewModel(courses.Include(c => c.Teacher).Include(c => c.Group));
+        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
         Content = vm;
     }
 

@@ -11,8 +11,8 @@ using StudentManagement.Services;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20230527130140_make_course_groups_1tomv2")]
-    partial class make_course_groups_1tomv2
+    [Migration("20230527141044_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace StudentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseCode")
+                    b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -38,7 +38,7 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("AbsenceId");
 
-                    b.HasIndex("CourseCode");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("StudentId");
 
@@ -47,7 +47,15 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Models.Course", b =>
                 {
+                    b.Property<string>("CourseId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupCode")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("TeacherId")
@@ -61,7 +69,9 @@ namespace StudentManagement.Migrations
                     b.Property<int>("TotalHours")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CourseCode");
+                    b.HasKey("CourseId");
+
+                    b.HasIndex("GroupCode");
 
                     b.HasIndex("TeacherId");
 
@@ -73,15 +83,10 @@ namespace StudentManagement.Migrations
                     b.Property<string>("GroupCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CourseCode")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Grade")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("GroupCode");
-
-                    b.HasIndex("CourseCode");
 
                     b.ToTable("Groups");
                 });
@@ -92,7 +97,7 @@ namespace StudentManagement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseCode")
+                    b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -107,7 +112,7 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("MarkId");
 
-                    b.HasIndex("CourseCode");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("StudentId");
 
@@ -194,7 +199,7 @@ namespace StudentManagement.Migrations
                 {
                     b.HasOne("StudentManagement.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseCode")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -211,29 +216,28 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Models.Course", b =>
                 {
+                    b.HasOne("StudentManagement.Models.Group", "Group")
+                        .WithMany("Courses")
+                        .HasForeignKey("GroupCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StudentManagement.Models.Teacher", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Group");
+
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("StudentManagement.Models.Group", b =>
-                {
-                    b.HasOne("StudentManagement.Models.Course", "Course")
-                        .WithMany("Groups")
-                        .HasForeignKey("CourseCode");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("StudentManagement.Models.Mark", b =>
                 {
                     b.HasOne("StudentManagement.Models.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseCode")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -259,9 +263,9 @@ namespace StudentManagement.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("StudentManagement.Models.Course", b =>
+            modelBuilder.Entity("StudentManagement.Models.Group", b =>
                 {
-                    b.Navigation("Groups");
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

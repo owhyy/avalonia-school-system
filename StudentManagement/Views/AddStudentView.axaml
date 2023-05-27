@@ -8,14 +8,13 @@
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
         <TextBox Watermark="First name" Width="600" Height="50" Text="{Binding FirstName}" />
         <TextBox Watermark="Last name" Width="600" Height="50" Text="{Binding LastName}" />
-        <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Date of birth" Width="600"
-                            Height="50" SelectedDate="{Binding BirthDate}"/>
+        <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Date of birth"
+                            Width="600"
+                            Height="50" SelectedDate="{Binding BirthDate}" />
         <ComboBox PlaceholderText="Gender" Width="600" Height="50" HorizontalAlignment="Center"
-                  SelectedItem="{Binding Gender}" Items="{Binding Genders}">
-        </ComboBox>
+                  SelectedItem="{Binding Gender}" Items="{Binding Genders}" />
         <ComboBox PlaceholderText="Group" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Group}" Items="{Binding Groups}">
-        </ComboBox>
+                  SelectedItem="{Binding Group}" Items="{Binding Groups}" />
         <!-- TODO: maybe do this just for fun -->
         <!-- <AutoCompleteBox SelectedItem="{Binding Group}" Width="600" Height="50" Watermark="Group" Items="{Binding Groups}"></AutoCompleteBox> -->
         <Button VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="ADD"

@@ -6,14 +6,11 @@
              x:Class="StudentManagement.Views.AddAbsenceView">
     <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
         <CalendarDatePicker Width="600" Height="50" Watermark="Date" HorizontalContentAlignment="Left"
-                            VerticalContentAlignment="Center" Text="{Binding Date}">
-        </CalendarDatePicker>
+                            VerticalContentAlignment="Center" Text="{Binding Date}" />
         <ComboBox PlaceholderText="Student" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Student}" Items="{Binding Students}">
-        </ComboBox>
+                  SelectedItem="{Binding Student}" Items="{Binding Students}" />
         <ComboBox PlaceholderText="Course" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Course}" Items="{Binding Courses}">
-        </ComboBox>
+                  SelectedItem="{Binding Course}" Items="{Binding Courses}" />
         <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddAbsence}">
             ADD
