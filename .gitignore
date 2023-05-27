@@ -401,3 +401,6 @@ FodyWeavers.xsd
 .idea
 dotnet-ef
 bin/
+
+# Database
+students.db
