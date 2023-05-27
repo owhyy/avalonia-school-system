@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagement.Services;
 
@@ -10,9 +11,11 @@ using StudentManagement.Services;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20230527130140_make_course_groups_1tomv2")]
+    partial class make_course_groups_1tomv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -47,10 +50,6 @@ namespace StudentManagement.Migrations
                     b.Property<string>("CourseCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("GroupCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("TeacherId")
                         .HasColumnType("INTEGER");
 
@@ -64,8 +63,6 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("CourseCode");
 
-                    b.HasIndex("GroupCode");
-
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
@@ -76,10 +73,15 @@ namespace StudentManagement.Migrations
                     b.Property<string>("GroupCode")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CourseCode")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Grade")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("GroupCode");
+
+                    b.HasIndex("CourseCode");
 
                     b.ToTable("Groups");
                 });
@@ -209,21 +211,22 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Models.Course", b =>
                 {
-                    b.HasOne("StudentManagement.Models.Group", "Group")
-                        .WithMany("Courses")
-                        .HasForeignKey("GroupCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StudentManagement.Models.Teacher", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Group");
-
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("StudentManagement.Models.Group", b =>
+                {
+                    b.HasOne("StudentManagement.Models.Course", "Course")
+                        .WithMany("Groups")
+                        .HasForeignKey("CourseCode");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("StudentManagement.Models.Mark", b =>
@@ -256,9 +259,9 @@ namespace StudentManagement.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("StudentManagement.Models.Group", b =>
+            modelBuilder.Entity("StudentManagement.Models.Course", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("Groups");
                 });
 #pragma warning restore 612, 618
         }

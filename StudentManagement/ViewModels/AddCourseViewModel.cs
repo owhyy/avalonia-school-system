@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reactive;
 using ReactiveUI;
 using StudentManagement.Models;
@@ -46,25 +48,22 @@ public class AddCourseViewModel : ViewModelBase
             course => course.Title,
             course => course.Hours,
             course => course.Teacher,
-            course => course.Group,
-            (code, title, hours, teacher, group) =>
+            (code, title, hours, teacher) =>
                 ValidationUtils.IsValidGroupCode(code)
                 && !string.IsNullOrEmpty(title)
                 && ValidationUtils.IsGreaterThanZero(hours)
                 && teacher != null
-                && group != null
         );
 
         AddCourse = ReactiveCommand.Create(
-            () =>
-                new Course
-                {
-                    CourseCode = Code,
-                    Title = Title,
-                    TotalHours = Hours,
-                    Teacher = Teacher,
-                    Group = Group
-                }
+            () => SelectedGroups.Select(group => new Course
+            {
+                CourseCode = Code,
+                Title = Title,
+                TotalHours = Hours,
+                Teacher = Teacher,
+                Group = group
+            }).ToList()
         );
     }
 
@@ -72,7 +71,6 @@ public class AddCourseViewModel : ViewModelBase
     private string _title;
     private int _hours;
     private Teacher _teacher;
-    private Group _group;
 
     [Required(ErrorMessage = "{0} is required")]
     [StringLength(
@@ -118,15 +116,11 @@ public class AddCourseViewModel : ViewModelBase
 
     // TODO: here too
     // [Required(ErrorMessage = "{0} is required")]
-    [EnumDataType(typeof(Group))]
-    public Group Group
-    {
-        get => _group;
-        set => this.RaiseAndSetIfChanged(ref _group, value);
-    }
+    // [EnumDataType(typeof(Group))]
+    public ObservableCollection<Group> SelectedGroups { get; } = new();
 
     private Database _database;
     public IEnumerable<Group> Groups => _database.Groups;
     public IEnumerable<Teacher> Teachers => _database.Teachers;
-    public ReactiveCommand<Unit, Course> AddCourse { get; }
+    public ReactiveCommand<Unit, List<Course>> AddCourse { get; }
 }

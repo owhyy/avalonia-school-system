@@ -6,8 +6,6 @@ using StudentManagement.Models;
 namespace StudentManagement.Services;
 
 public class Database : DbContext
-// Simple wrapper class to avoid passing 3 arguments to MainWindowView
-// and create contexts for each action
 {
     public Database()
     {

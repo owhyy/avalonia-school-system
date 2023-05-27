@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
+using SQLitePCL;
 using StudentManagement.Services;
 
 namespace StudentManagement.ViewModels;
@@ -14,7 +16,9 @@ public class MainWindowViewModel : ViewModelBase
     {
         _db = db;
         MainMenu = new MenuViewModel();
-        GoToLoginView();
+        // GoToLoginView();
+        // GoToAddStudentView();
+        GoToAddCourseView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -81,10 +85,13 @@ public class MainWindowViewModel : ViewModelBase
     public void GoToAddCourseView()
     {
         var vm = new AddCourseViewModel(_db);
-        vm.AddCourse.Subscribe(course =>
+        vm.AddCourse.Subscribe(courses =>
         {
-            _db.Courses.Add(course);
-            _db.SaveChanges();
+            using (var context = new Database())
+            {
+                context.BulkInsert(courses);
+            }
+            
             Content = MainMenu;
         });
         Content = vm;
@@ -99,11 +106,6 @@ public class MainWindowViewModel : ViewModelBase
             Content = MainMenu;
         });
         Content = vm;
-    }
-
-    public void GoToExportView()
-    {
-        Content = new ExportViewModel();
     }
 
     public void GoToAddTeacherView()

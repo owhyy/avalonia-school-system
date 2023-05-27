@@ -19,9 +19,7 @@
         <ComboBox PlaceholderText="Teacher" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
                   SelectedItem="{Binding Teacher}" Items="{Binding Teachers}">
         </ComboBox>
-        <ComboBox PlaceholderText="Group" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Group}" Items="{Binding Groups}">
-        </ComboBox>
+        <ListBox SelectionMode="Multiple,Toggle" SelectedItems="{Binding SelectedGroups}" Items="{Binding Groups}"></ListBox>
         <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddCourse}">
             ADD

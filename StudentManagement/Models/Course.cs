@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace StudentManagement.Models;
 
-public class Course
+public sealed class Course
 {
+
     public override string ToString()
     {
         return $"{Title}({CourseCode})";
     }
 
-    [Key]
+    public string CourseId { get; set; }
     public string CourseCode { get; set; }
 
     [Required(ErrorMessage = "{0} is required")]
@@ -31,6 +33,6 @@ public class Course
     [Required(ErrorMessage = "{0} is required")]
     public int TotalHours { get; set; }
 
-    [field: OptionalField]
+    [Required(ErrorMessage = "{0} is required")]
     public Group Group { get; set; }
 }
