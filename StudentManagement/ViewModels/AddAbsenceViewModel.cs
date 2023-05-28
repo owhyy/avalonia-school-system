@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using ReactiveUI;
 using StudentManagement.Models;
 using StudentManagement.Services;
+using Z.BulkOperations.Internal;
 
 namespace StudentManagement.ViewModels;
 
@@ -57,7 +59,7 @@ public class AddAbsenceViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _date, value);
     }
 
-    public IEnumerable<Student> Students => _database.Students;
+    public IEnumerable<Student> Students => _database.Students.Where(s => s.Group == Course.Group);
     public IEnumerable<Course> Courses => _database.Courses;
 
     public ReactiveCommand<Unit, Absence> AddAbsence { get; }

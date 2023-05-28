@@ -2,19 +2,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.AddCourseView">
 
     <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <!-- TODO: add icon -->
-        <TextBox Width="600" Height="50" Watermark="Course code" HorizontalContentAlignment="Left"
+        <avalonia:MaterialIcon Classes="add_view_icon" Kind="Bookshelf" />
+        <TextBox Watermark="Course code" HorizontalContentAlignment="Left"
                  VerticalContentAlignment="Center" Text="{Binding Code}" />
-        <TextBox Width="600" Height="50" Watermark="Title" HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center" Text="{Binding Title}" />
-        <TextBox Width="600" Height="50" Watermark="Total hours" HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center" Text="{Binding Hours}" />
-        <ComboBox PlaceholderText="Teacher" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Teacher}" Items="{Binding Teachers}" />
+        <TextBox Watermark="Title" Text="{Binding Title}" />
+        <TextBox Watermark="Total hours" Text="{Binding Hours}" />
+        <ComboBox PlaceholderText="Teacher" Margin="20 0" SelectedItem="{Binding Teacher}" Items="{Binding Teachers}" />
+        <Label Margin="18 10 0 0" Content="Groups"></Label>
         <ListBox SelectionMode="Multiple,Toggle" SelectedItems="{Binding SelectedGroups}" Items="{Binding Groups}" />
         <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddCourse}">

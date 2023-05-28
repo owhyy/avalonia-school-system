@@ -4,10 +4,7 @@ namespace StudentManagement.Models;
 
 public enum TeachingSubject
 {
-    Arts,
-    Humanities,
-    Science,
-    Mathematics
+    Math, Science, English, History, Art, Music 
 }
 
 public class Teacher

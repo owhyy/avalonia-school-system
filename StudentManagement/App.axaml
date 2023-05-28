@@ -1,13 +1,54 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:StudentManagement"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              x:Class="StudentManagement.App">
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme Mode="Light" />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+        <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml" />
+        <StyleInclude Source="avares://Citrus.Avalonia/Candy.xaml" />
+        <Style Selector="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Spacing" Value="5"></Setter>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Width" Value="600"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="Width" Value="600"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+        </Style>
+        <Style Selector="avalonia|MaterialIcon.add_view_icon">
+            <Setter Property="Foreground" Value="Gray"></Setter>
+            <Setter Property="Height" Value="60"></Setter>
+            <Setter Property="Width" Value="60"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0 40 0 30"></Setter>
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="MinWidth" Value="100"></Setter>
+        </Style>
+        <Style Selector="Grid.list_view_button_grid">
+           <Setter Property="Margin" Value="20 20 0 20 "></Setter> 
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+        </Style>
+        <Style Selector="Grid.list_view_button_grid > Button">
+           <Setter Property="Margin" Value="10 0 "></Setter> 
+           <Setter Property="MinWidth" Value="100 "></Setter> 
+        </Style>
     </Application.Styles>
 </Application>

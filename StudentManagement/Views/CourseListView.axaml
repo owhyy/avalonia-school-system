@@ -5,32 +5,34 @@
              xmlns:models="clr-namespace:StudentManagement.Models"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.CourseListView">
-
-    <Grid Margin="0 20 0 0 ">
-        <DataGrid Name="Courses" Items="{Binding Courses}" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Code" Binding="{Binding CourseCode}" />
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
-                <DataGridTemplateColumn Header="Teacher">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="models:Course">
-                            <TextBlock Text="{Binding Teacher}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Total Hours" Binding="{Binding TotalHours}" />
-                <DataGridTemplateColumn Header="Group">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="models:Course">
-                            <TextBlock Text="{Binding Group.GroupCode}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Margin="0 0 0 20" HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Bottom"
-                Command="{Binding GoBack}">
-            Go back
-        </Button>
-    </Grid>
+    <Panel Height="800" Width="1200">
+        <Grid VerticalAlignment="Top" Margin="0" MaxHeight="700" Width="1200">
+            <DataGrid Name="Courses" Items="{Binding Courses}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Code" Binding="{Binding CourseCode}" />
+                    <DataGridTextColumn Header="Title" Width="300"  Binding="{Binding Title}" />
+                    <DataGridTemplateColumn Width="200" Header="Teacher">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Course">
+                                <TextBlock Text="{Binding Teacher}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Total Hours" Binding="{Binding TotalHours}" />
+                    <DataGridTemplateColumn Header="Group">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Course">
+                                <TextBlock Text="{Binding Group.GroupCode}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Classes="list_view_button_grid">
+            <Button Command="{Binding GoBack}">
+                Go back
+            </Button>
+        </Grid>
+    </Panel>
 </UserControl>

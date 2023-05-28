@@ -2,22 +2,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.AddStudentView">
 
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
-        <TextBox Watermark="First name" Width="600" Height="50" Text="{Binding FirstName}" />
-        <TextBox Watermark="Last name" Width="600" Height="50" Text="{Binding LastName}" />
+    <UserControl.Styles>
+        <Style Selector="CalendarDatePicker">
+            <Setter Property="Width" Value="600"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="Padding" Value="20  0 0 0"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel>
+        <avalonia:MaterialIcon Classes="add_view_icon" Kind="AccountStudent" />
+        <TextBox Watermark="First name" Text="{Binding FirstName}" />
+        <TextBox Watermark="Last name" Text="{Binding LastName}" />
         <CalendarDatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Watermark="Date of birth"
-                            Width="600"
-                            Height="50" SelectedDate="{Binding BirthDate}" />
-        <ComboBox PlaceholderText="Gender" Width="600" Height="50" HorizontalAlignment="Center"
-                  SelectedItem="{Binding Gender}" Items="{Binding Genders}" />
-        <ComboBox PlaceholderText="Group" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Group}" Items="{Binding Groups}" />
+                            SelectedDate="{Binding BirthDate}" />
+        <ComboBox PlaceholderText="Gender" SelectedItem="{Binding Gender}" Items="{Binding Genders}" />
+        <ComboBox PlaceholderText="Group" Margin="20 0" SelectedItem="{Binding Group}" Items="{Binding Groups}" />
         <!-- TODO: maybe do this just for fun -->
         <!-- <AutoCompleteBox SelectedItem="{Binding Group}" Width="600" Height="50" Watermark="Group" Items="{Binding Groups}"></AutoCompleteBox> -->
-        <Button VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="ADD"
-                HorizontalAlignment="Center" Width="600" Height="50" Command="{Binding AddStudent}" />
+        <Button Content="ADD" HorizontalAlignment="Center" Command="{Binding AddStudent}" />
     </StackPanel>
 </UserControl>

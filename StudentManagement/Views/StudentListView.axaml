@@ -3,40 +3,58 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:StudentManagement.Models"
-             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800" Width="1200" Height="800"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.StudentListView">
 
-    <Grid Margin="0 20 0 0 ">
-        <DataGrid Name="Students" Items="{Binding Students}" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding StudentId}" />
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
-                <DataGridTextColumn Header="Date of Birth" Binding="{Binding BirthDate}" />
-                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" />
-                <DataGridTemplateColumn Header="Grade">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="models:Student">
-                            <TextBlock Text="{Binding Group.Grade}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Group">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="models:Student">
-                            <TextBlock Text="{Binding Group}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Average mark" Binding="{Binding AverageMark}" />
-                <DataGridTextColumn Header="Absence count" Binding="{Binding AbsenceCount}" />
-            </DataGrid.Columns>
-        </DataGrid>
+    <Panel Height="800" Width="1200">
+        <Grid VerticalAlignment="Top" Margin="0" MaxHeight="700" MaxWidth="1200">
+            <DataGrid VerticalAlignment="Top" Name="Students" Items="{Binding Students}" IsReadOnly="True"
+                      MaxHeight="700">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding StudentId}" />
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                    <DataGridTextColumn Header="Date of Birth" Binding="{Binding BirthDate}" />
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" />
+                    <DataGridTemplateColumn Header="Grade">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Student">
+                                <TextBlock Text="{Binding Group.Grade}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Group">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Student">
+                                <TextBlock Text="{Binding Group}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Average mark" Binding="{Binding AverageMark}" />
+                    <DataGridTextColumn Header="Absence count" Binding="{Binding AbsenceCount}" />
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <Button Margin="0 0 0 20" HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Bottom"
-                Command="{Binding GoBack}">
-            Go back
-        </Button>
-    </Grid>
+        </Grid>
 
+        <Grid Classes="list_view_button_grid" Margin="0 0 0 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Command="{Binding GoBack}">
+                Go back
+            </Button>
+            <Button Grid.Column="1"
+                    Command="{Binding }">
+                Filter by group
+            </Button>
+            <Button Grid.Column="2"
+                    Command="{Binding GoBack}">
+                Go back
+            </Button>
+        </Grid>
+    </Panel>
 </UserControl>

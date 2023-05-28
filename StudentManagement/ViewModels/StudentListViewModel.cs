@@ -17,11 +17,12 @@ public class ExtendedStudent : Student
         StudentId = s.StudentId;
         FirstName = s.FirstName;
         LastName = s.LastName;
+        BirthDate = s.BirthDate;
         Gender = s.Gender;
         Group = s.Group;
     }
 
-    public double AverageMark { get; set; }
+    public string AverageMark { get; set; }
     public int AbsenceCount { get; set; }
 }
 
@@ -41,11 +42,11 @@ public class StudentListViewModel : ViewModelBase
             {
                 try
                 {
-                    extendedStudent.AverageMark = db.Marks.Where(g => g.Student == student).Average(g => g.Value);
+                    extendedStudent.AverageMark = db.Marks.Where(g => g.Student == student).Average(g => g.Value).ToString("#.##");
                 }
                 catch (Exception e)
                 {
-                    extendedStudent.AverageMark = 0;
+                    extendedStudent.AverageMark = "no marks";
                 }
 
                 try

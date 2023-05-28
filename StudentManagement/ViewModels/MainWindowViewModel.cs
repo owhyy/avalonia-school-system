@@ -15,8 +15,8 @@ public class MainWindowViewModel : ViewModelBase
         _db = db;
         MainMenu = new MenuViewModel();
         // GoToLoginView();
-        // GoToAddStudentView();
-        GoToAddCourseView();
+        // GoToCourseListView();
+        GoToStudentListView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -79,11 +79,7 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new AddCourseViewModel(_db);
         vm.AddCourse.Subscribe(courses =>
         {
-            using (var context = new Database())
-            {
-                context.BulkInsert(courses);
-            }
-
+            _db.BulkInsert(courses);
             Content = MainMenu;
         });
         Content = vm;
