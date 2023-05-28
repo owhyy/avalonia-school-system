@@ -10,7 +10,9 @@ Allows adding and viewing students, courses, groups, marks and absences. Largely
 
 ## Import test data
 
-To make testing easier, you can run the following command, which will create the database, run the migrations, and import some fake data.
+To make testing easier, you can run the following command, which will create the database, run the migrations, and import some fake data. 
+
+This will also create a default user, with the credentials admin:admin.
 
 Before running, make sure you have `sqlite3` installed.
 

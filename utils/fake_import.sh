@@ -18,7 +18,7 @@ print_success
 
 folder="../utils/fake_data";
 # declare tables specifically to create relations in the right order 
-tables=("teachers" "groups" "courses" "students" "marks" "absences")
+tables=("users teachers" "groups" "courses" "students" "marks" "absences")
 for table in ${tables[@]}
 do
 	file_name=$folder/$table.csv
