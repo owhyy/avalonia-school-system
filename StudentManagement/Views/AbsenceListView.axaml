@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:StudentManagement.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudentManagement.Views.AbsenceListView">
+    <Panel Height="800" Width="1200">
+        <Grid VerticalAlignment="Top" Margin="0" MaxHeight="700" Width="1200">
+            <DataGrid Name="Absences" Items="{Binding Absences}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" />
+                    <DataGridTemplateColumn Width="200" Header="Student">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Absence">
+                                <TextBlock Text="{Binding Student}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="400" Header="Course">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:Absence">
+                                <TextBlock Text="{Binding Course }" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Classes="list_view_button_grid">
+            <Button Command="{Binding GoBack}">
+                Go back
+            </Button>
+        </Grid>
+    </Panel>
+</UserControl>

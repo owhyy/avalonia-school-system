@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagement.Models;
@@ -44,5 +45,10 @@ public class Student
     public override string ToString()
     {
         return $"{FirstName} {LastName}";
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Student student && student.StudentId == StudentId;
     }
 }
