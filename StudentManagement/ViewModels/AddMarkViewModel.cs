@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reactive;
+using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using StudentManagement.Models;
 using StudentManagement.Services;
@@ -26,14 +28,14 @@ public class AddMarkViewModel : ViewModelBase
 {
     private Course _course;
 
-    private readonly Database _database;
     private DateOnly _date = DateOnly.FromDateTime(DateTime.Today);
     private Student _student;
     private int _value;
+    private IEnumerable<Student> _students;
+    private IEnumerable<Course> _courses;
 
     public AddMarkViewModel(Database db)
     {
-        _database = db;
         var canAddMark = this.WhenAnyValue(
             mark => mark.Student,
             mark => mark.Course,
@@ -45,6 +47,25 @@ public class AddMarkViewModel : ViewModelBase
                 && date != DateOnly.MinValue
                 && ValidationUtils.IsValidMark(value)
         );
+
+        this.WhenAnyValue(absence => absence.Course).Subscribe(course =>
+        {
+            if (Student == null)
+            {
+                Students = course == null ? db.Students : db.Students.Where(s => s.Group.Courses.Contains(course));
+            }
+        });
+
+
+        this.WhenAnyValue(absence => absence.Student).Subscribe(student =>
+        {
+            if (Course == null)
+            {
+                Courses = student == null
+                    ? db.Courses.Include(c => c.Group)
+                    : db.Courses.Include(c => c.Group.Students).Where(c => c.Group.Students.Contains(student));
+            }
+        });
 
         AddMark = ReactiveCommand.Create(
             () =>
@@ -86,6 +107,14 @@ public class AddMarkViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _date, value);
     }
 
-    public IEnumerable<Student> Students => _database.Students;
-    public IEnumerable<Course> Courses => _database.Courses;
+    public IEnumerable<Student> Students
+    {
+        get => _students;
+        set => this.RaiseAndSetIfChanged(ref _students, value);
+    }
+    
+    public IEnumerable<Course> Courses { 
+        get => _courses;
+        set => this.RaiseAndSetIfChanged(ref _courses, value);
+    }
 }

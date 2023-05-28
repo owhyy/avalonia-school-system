@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagement.Models;
@@ -27,6 +29,6 @@ public sealed class Course
 
     public override string ToString()
     {
-        return $"{Title}({CourseCode})";
+        return $"{Title}({Group})";
     }
 }

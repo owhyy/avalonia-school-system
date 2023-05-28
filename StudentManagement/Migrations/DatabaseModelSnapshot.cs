@@ -124,6 +124,9 @@ namespace StudentManagement.Migrations
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -142,6 +145,8 @@ namespace StudentManagement.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("StudentId");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("GroupCode");
 
@@ -250,8 +255,12 @@ namespace StudentManagement.Migrations
 
             modelBuilder.Entity("StudentManagement.Models.Student", b =>
                 {
+                    b.HasOne("StudentManagement.Models.Course", null)
+                        .WithMany("Students")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("StudentManagement.Models.Group", "Group")
-                        .WithMany()
+                        .WithMany("Students")
                         .HasForeignKey("GroupCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -259,9 +268,16 @@ namespace StudentManagement.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("StudentManagement.Models.Course", b =>
+                {
+                    b.Navigation("Students");
+                });
+
             modelBuilder.Entity("StudentManagement.Models.Group", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

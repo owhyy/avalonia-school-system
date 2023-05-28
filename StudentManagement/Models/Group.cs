@@ -17,6 +17,12 @@ public class Group
 
     public Grade Grade { get; set; }
     public virtual ICollection<Course> Courses { get; set; }
+    public virtual ICollection<Student> Students { get; }
+
+    public Group()
+    {
+        Students = new HashSet<Student>();
+    }
 
     public override string ToString()
     {

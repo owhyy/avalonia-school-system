@@ -16,7 +16,8 @@ public class MainWindowViewModel : ViewModelBase
         MainMenu = new MenuViewModel();
         // GoToLoginView();
         // GoToCourseListView();
-        GoToStudentListView();
+        // GoToAddAbsenceView();
+        GoToAddMarkView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -43,12 +44,10 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new AddGroupViewModel();
         vm.AddGroup.Subscribe(group =>
         {
-            if (group != null)
-            {
-                _db.Groups.Add(group);
-                _db.SaveChanges();
-                Content = MainMenu;
-            }
+            if (group == null) return;
+            _db.Groups.Add(group);
+            _db.SaveChanges();
+            Content = MainMenu;
         });
         Content = vm;
     }
@@ -98,12 +97,10 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new AddTeacherViewModel();
         vm.AddTeacher.Subscribe(teacher =>
         {
-            if (teacher != null)
-            {
-                _db.Teachers.Add(teacher);
-                _db.SaveChanges();
-                Content = MainMenu;
-            }
+            if (teacher == null) return;
+            _db.Teachers.Add(teacher);
+            _db.SaveChanges();
+            Content = MainMenu;
         });
         Content = vm;
     }
@@ -113,12 +110,10 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new AddAbsenceViewModel(_db);
         vm.AddAbsence.Subscribe(absence =>
         {
-            if (absence != null)
-            {
-                _db.Absences.Add(absence);
-                _db.SaveChanges();
-                Content = MainMenu;
-            }
+            if (absence == null) return;
+            _db.Absences.Add(absence);
+            _db.SaveChanges();
+            Content = MainMenu;
         });
         Content = vm;
     }
@@ -128,12 +123,10 @@ public class MainWindowViewModel : ViewModelBase
         var vm = new AddMarkViewModel(_db);
         vm.AddMark.Subscribe(mark =>
         {
-            if (mark != null)
-            {
-                _db.Marks.Add(mark);
-                _db.SaveChanges();
-                Content = MainMenu;
-            }
+            if (mark == null) return;
+            _db.Marks.Add(mark);
+            _db.SaveChanges();
+            Content = MainMenu;
         });
         Content = vm;
     }
