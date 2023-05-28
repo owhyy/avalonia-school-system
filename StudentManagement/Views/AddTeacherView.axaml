@@ -5,13 +5,11 @@
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
              x:Class="StudentManagement.Views.AddTeacherView">
 
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="5">
-        <TextBox Watermark="First name" Width="600" Height="50" Text="{Binding FirstName}" />
-        <TextBox Watermark="Last name" Width="600" Height="50" Text="{Binding LastName}" />
-        <ComboBox PlaceholderText="Subject" HorizontalAlignment="Center" Margin="20 0" Width="600" Height="50"
-                  SelectedItem="{Binding Subject}" Items="{Binding Subjects}" />
-        <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="50" Width="100"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddTeacher}">
+    <StackPanel>
+        <TextBox Watermark="First name" Text="{Binding FirstName}" />
+        <TextBox Watermark="Last name" Text="{Binding LastName}" />
+        <ComboBox PlaceholderText="Subject" HorizontalAlignment="Center" SelectedItem="{Binding Subject}" Items="{Binding Subjects}" />
+        <Button Height="50" Width="100" Command="{Binding AddTeacher}">
             ADD
         </Button>
     </StackPanel>

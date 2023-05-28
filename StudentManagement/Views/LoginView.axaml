@@ -22,8 +22,7 @@
         </Style>
     </UserControl.Styles>
     <Panel>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Orientation="Vertical">
+        <StackPanel>
             <avalonia:MaterialIcon Kind="Person"/>
             <TextBox Watermark="Username" Text="{Binding Username}" />
             <TextBox Watermark="Password" PasswordChar="*" Text="{Binding Password}" />
