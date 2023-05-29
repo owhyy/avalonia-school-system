@@ -11,6 +11,7 @@
         <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml" />
         <StyleInclude Source="avares://Citrus.Avalonia/Candy.xaml" />
+        <StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml"/>
         <Style Selector="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>

@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using ReactiveUI;
+using StudentManagement.Models;
 using StudentManagement.Services;
 
 namespace StudentManagement.ViewModels;
@@ -14,10 +18,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         _db = db;
         MainMenu = new MenuViewModel();
-        // GoToLoginView();
-        // GoToCourseListView();
-        // GoToAddAbsenceView();
-        GoToAddMarkView();
+        GoToLoginView();
     }
 
     public MenuViewModel MainMenu { get; set; }
@@ -70,6 +71,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         var vm = new StudentListViewModel(_db);
         vm.GoBack.Subscribe(_ => { Content = MainMenu; });
+        vm.ShowFilterByGroupDialog.Subscribe(group => { });
         Content = vm;
     }
 
@@ -129,5 +131,75 @@ public class MainWindowViewModel : ViewModelBase
             Content = MainMenu;
         });
         Content = vm;
+    }
+
+    public void GoToMarkListView()
+    {
+        var vm = new MarkListViewModel(_db.Marks.Include(m => m.Student).Include(m => m.Course.Group));
+        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
+        Content = vm;
+    }
+
+    public void GoToAbsenceListView()
+    {
+        var vm = new AbsenceListViewModel(_db.Absences.Include(m => m.Student).Include(m => m.Course.Group));
+        vm.GoBack.Subscribe(_ => { Content = MainMenu; });
+        Content = vm;
+    }
+
+    public void Export()
+    {
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        var path = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Students.xlsx");
+        
+        using (var package = new ExcelPackage(new FileInfo(path)))
+        {
+            var studentSheet = package.Workbook.Worksheets.Add("Students");
+            studentSheet.Cells["A1:F1"].Style.Font.Size = 18f;
+            studentSheet.Cells["A1:F1"].Style.Font.Bold = true;
+            studentSheet.Cells["A1"].Value = "Id";
+            studentSheet.Cells["B1"].Value = "First Name";
+            studentSheet.Cells["C1"].Value = "Last Name";
+            studentSheet.Cells["D1"].Value = "Birth Date";
+            studentSheet.Cells["E1"].Value = "Gender";
+            studentSheet.Cells["F1"].Value = "Group";
+
+            var students = new List<Student>(_db.Students.Include(s=>s.Group));
+            for (var i = 2; i < students.Count; i++)
+            {
+                var student = students[i - 2];
+                studentSheet.Cells[$"A{i}"].Value = student.StudentId;
+                studentSheet.Cells[$"B{i}"].Value = student.FirstName;
+                studentSheet.Cells[$"C{i}"].Value = student.LastName;
+                studentSheet.Cells[$"D{i}"].Value = student.BirthDate;
+                studentSheet.Cells[$"E{i}"].Value = student.Gender.ToString();
+                studentSheet.Cells[$"F{i}"].Value = student.Group.ToString();
+                }
+
+            var courseSheet = package.Workbook.Worksheets.Add("Courses");
+            courseSheet.Cells["A1:F1"].Merge = true;
+            courseSheet.Cells["A1:F1"].Style.Font.Size = 18f;
+            courseSheet.Cells["A1:F1"].Style.Font.Bold = true;
+            courseSheet.Cells["A1"].Value = "Id";
+            courseSheet.Cells["B1"].Value = "Code";
+            courseSheet.Cells["C1"].Value = "Teacher";
+            courseSheet.Cells["D1"].Value = "Title";
+            courseSheet.Cells["E1"].Value = "Group";
+            courseSheet.Cells["F1"].Value = "Total hours";
+            
+            var courses = new List<Course>(_db.Courses.Include(c=>c.Teacher).Include(c=>c.Group));
+            for (var i = 2; i < courses.Count; i++)
+            {
+                var course = courses[i - 2];
+                courseSheet.Cells[$"A{i}"].Value = course.CourseId;
+                courseSheet.Cells[$"B{i}"].Value = course.CourseCode;
+                courseSheet.Cells[$"C{i}"].Value = course.Teacher.FirstName;
+                courseSheet.Cells[$"D{i}"].Value = course.Title;
+                courseSheet.Cells[$"E{i}"].Value = course.Group.GroupCode;
+                courseSheet.Cells[$"F{i}"].Value = course.TotalHours;
+            }
+            
+            package.Save();
+        }
     }
 }
